@@ -1,0 +1,198 @@
+ 
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="utf-8" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body dir="rtl">
+
+  <input type="text" name="fname" id="fname" placeholder="שם פרטי" class="field-long"/>
+	<input type="text" name="lname" id="lname" placeholder="שם משפחה" class="field-long"/> 
+	<input type="text" name="id" id="id" placeholder="ת.ז" class="field-long"/> 
+	<input type="button" value="הכנס" onclick="insertPerson()" class="btn-inp"/> 
+	<input type ="button" value="תקון" onclick="fixId()" class="btn-inp"/>
+	
+	<input type="button" value="הצג" onclick="showPerson()" class="btn-inp"/>
+		<input type="button" value="חפש" onclick="searchPerson()" class="btn-inp"/>
+		
+			<input type="button" value="ערוך" onclick="editPerson()" class="btn-inp"/>
+			<input type="button" value="נקה" onclick="clearPerson()" class="btn-inp"/>
+	<div  id="allPersons"></div>
+
+	<div  id="onePerson"></div>
+
+<script>
+String.prototype.isNumber = function(){return /^\d+$/.test(this);}
+
+	var personArr = [];
+	var fname = document.getElementById("fname");
+	var lname = document.getElementById("lname");
+	var id = document.getElementById("id");
+
+           var newPerson = new person("yedidel","louck","000000018");
+		   personArr.push(newPerson);
+		   
+		   var newPerson = new person("avi","tal","000000026");
+		   personArr.push(newPerson);
+
+
+
+
+function cal(str){
+	var arr = str.split("");
+	var text=0;
+	var text2="";
+	var i;
+	for (i = 0; i < 8; i++) {
+	var temp = "";
+	temp+= arr[i]*((i%2)+1);
+	    
+	    if(temp.length>1){
+	    text += splitAndConcat(temp);
+	    }else{
+	    text += temp*1
+	    }
+	}
+	text2 += text;
+	var final ="";
+	if(text2.length>1)
+	{
+		final = ((text2.split("")[0]*1)+1)*10-text;
+		final = final==10?0:final;
+	}else{
+		final = 10-text;
+		}
+		
+		if(isNaN(final)){
+			return str;
+		}else{
+			return str.substring(0,8)+final;
+		}
+
+}
+
+function splitAndConcat(str){
+	var temp = str.split("");
+	var num1 = temp[0]*1;
+	var num2 = temp[1]*1;
+	return num1+num2;
+}
+
+function person(_fname,_lname,_id) {
+    this.fname = _fname;
+    this.lname = _lname;
+    this.id = _id;
+
+    this.print = function () {
+      fname.value = this.fname;
+       lname.value = this.lname;
+    }
+    
+    this.edit = function () {
+    	if(fname.value!=""&&lname.value!=""){
+	       this.fname =  fname.value;
+	       this.lname = lname.value;
+    	}
+    }
+}
+
+function showPerson(){
+var text ="";
+	for(var i=0; i<personArr.length;i++){
+		text+="<p>"+personArr[i].fname+"  "+personArr[i].lname+"  "+personArr[i].id +"</p> ";
+	}
+	if(text!=""){
+	document.getElementById("allPersons").innerHTML = text;
+	}
+}
+
+function searchPerson(){
+		for(var i=0;i<personArr.length;i++)
+		{
+			if(personArr[i].id==id.value)
+			{
+			 personArr[i].print();
+				break;
+			}
+		}
+}
+
+function editPerson(){
+		for(var i=0;i<personArr.length;i++)
+		{
+			if(personArr[i].id==id.value)
+			{
+			 personArr[i].edit();
+				break;
+			}
+		}
+		showPerson();
+}
+
+function clearPerson(){
+
+	fname.value="";
+	lname.value="";
+	id.value="";
+}
+
+function insertPerson(){
+	
+	if(hasValue(fname.value,lname.value,id.value)&&validateId(id)){
+		   var newPerson = new person(fname.value,lname.value,id.value);
+		   personArr.push(newPerson);
+		   fname.value="";
+		   lname.value="";
+		   id.value="";
+   }
+}
+
+function validateId(id)
+{
+	if(!id.value.isNumber())
+	{
+		alert("להזין בת.ז רק ספרות");
+		id.value = "";
+		return false;
+	}
+	if(id.value.length!=9)
+	{
+		alert("ת.ז צריכה להיות בעלת 9 ספרות");
+		return false;
+	}
+	if(cal(id.value)!=id.value)
+	{
+		alert("ת.ז אינה תקינה");
+		return false;
+	}
+	for(var i=0;i<personArr.length;i++){
+		if(personArr[i].id==id.value)
+		{
+			alert("ת.ז זו קיימת כבר");
+			return false;
+			
+		}
+	}
+	return true;
+}
+
+function hasValue(){
+var flag = true;
+	for(var i=0;i<arguments.length;i++){
+		if(arguments[i]==""){
+			flag = false;
+			alert("נא למלא את כל השדות");
+			break;
+		}
+	}
+	return flag;
+}
+
+function fixId(){
+	var id = document.getElementById("id");
+	id.value = cal(id.value);
+}
+</script>
+</body>
+</html>
