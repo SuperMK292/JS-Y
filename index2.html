@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="form-style-1" id="cnt">
+ 
+  <input id="fname" name="fName" type="text" class="field-long" />
+  
+  <input id="lname" name="lName" type="text" class="field-long" />
+
+  <input id="id" name="id" type="text" class="field-long" />
+  
+  <button id="btn-inp" onclick="SAlert()">בדוק</button>
+  <button id="btn-inp" onclick="showPrsnArr()">הצג</button>
+  <button id="btn-inp" onclick="insertNewPerson()">הכנס</button>
+  
+  <!--<button id="btn-inp" onclick="showPrsnArr()">הצג</button>-->
+  <p id="demo"></p>
+  <p id="demo1"></p>
+</div>
+ 
+  <script>
+    var prsnArr = [], i, text;
+    
+    var fname = document.getElementById("fname");
+    var lname = document.getElementById("lname");
+    var id = document.getElementById("id");
+    
+    function Person(fname, lname, id) {
+    this.fname = fname;
+    this.lname = lname;
+    this.id = id;
+    }
+    
+    var mendel = new Person("mendel", "bismuth", 50);
+    document.getElementById("demo").innerHTML = mendel.lname;  
+    
+    
+    function insertNewPerson() {
+      var newPerson = new Person(fname.value,lname.value,id.value);
+      prsnArr.push(newPerson);
+    }
+    
+    function showPrsnArr() {
+      for (i = 0; i < prsnArr.length; i++) {
+      text += prsnArr[i];
+      }
+      document.getElementById("demo1").innerHTML = text;
+    }
+      /*
+      var newPerson = new Person(fName.value, lName.value, id.value);
+      prsnArr.push(newPerson);
+      alert(newPerson.fName);
+      */
+    
+    /*
+    function showPrsnArr() {
+      text = "<ul>";
+      for (i = 0; i < prsnArr.length; i++) {
+      text += "<li>" + prsnArr[i] + "</li>";
+      }
+      text += "</ul>";
+      document.getElementById("demo").innerHTML = text;
+    }
+    /*
+    function person(firstName, lastName, age, gender, ID) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+      this.gender = gender;
+      this.ID = ID;
+    }
+    
+    var nahman = new person("nahman", "farkash", 26,"male" 203229646);
+    var mendel = new person("mendel", "bismuth", 22,"male" 324490085);
+      
+    
+      function Person(fname, lname, id) {
+          this.fname = fname;
+          this.lname = lname;
+          this.id = id;
+      }
+    var mendel = new person("mendel", "bismuth", 32);
+    
+    alert(mendel.lname);
+      
+    function SAlert() {
+      var m = 10000000, sum = 0, text = document.getElementById("input").value, str = text, arr = [], noNum = isNaN(text), lnt = text.length, RID, str2 = str;
+      
+      if(text == "")
+        document.getElementById("demo").innerHTML = "please enter your ID";
+      else if(noNum == true)
+        document.getElementById("demo").innerHTML = "your input must contain numbers only";
+      else if(lnt < 8 || lnt > 9)
+        document.getElementById("demo").innerHTML = "your input is smaller from 8 or bigger from 9 digits";
+      else if(lnt > 7 && lnt < 10)
+      {
+        for(var i = 0; i < 8; i++)
+        {
+          arr.push(Math.floor(text / m)*(i % 2 + 1));
+          text = text % m;
+          m /= 10;
+          
+          if(arr[i] > 9)
+            sum += Math.floor(arr[i]/10) + arr[i] % 10;
+          else
+            sum += arr[i];
+        }
+        
+      SuperCeil = (Math.floor(sum/10) + 1) * 10 - sum;
+        
+        alert(lnt);
+        
+        if(lnt == 9)
+          str = str.slice(0, 8);
+
+        alert(str);
+        
+        RID = str + SuperCeil;
+        alert(RID);
+      if(str2 == RID)
+        document.getElementById("demo").innerHTML = "the check digit is right";
+        
+      document.getElementById("input").value = document.getElementById("input").innerHTML = RID;
+      }
+      return RID;
+    }
+    */
+  </script>
+</body>
+</html>
