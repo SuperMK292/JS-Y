@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="form-style-1" id="cnt">
+ 
+  <input id="fname" name="fName" type="text" class="field-long" />
+  
+  <input id="lname" name="lName" type="text" class="field-long" />
+
+  <input id="id" name="id" type="text" class="field-long" />
+  
+  <button id="btn-inp" onclick="SAlert()">בדוק</button>
+  <button id="btn-inp" onclick="showPrsnArr()">הצג</button>
+  <button id="btn-inp" onclick="insertNewPerson()">הכנס</button>
+
+  <p id="demo"></p>
+  <p id="demo1"></p>
+</div>
+ 
+  <script>
+    var prsnArr = [], i, text1;
+    
+    var fname = document.getElementById("fname");
+    var lname = document.getElementById("lname");
+    var id = document.getElementById("id");
+    
+    function Person(fname, lname, id) {
+    this.fname = fname;
+    this.lname = lname;
+    this.id = id;
+    }
+    
+    //var mendel = new Person("mendel", "bismuth", 50);
+    //document.getElementById("demo").innerHTML = mendel.lname;  
+    
+    function insertNewPerson() {
+      if(inputfilled(fname.value,lname.value,id.value)) 
+        {
+          var newPerson = new Person(fname.value,lname.value,id.value);
+          prsnArr.push(newPerson);
+          alert("aaaa");
+          alert(SAlert(id.value));
+        }
+    }
+    
+    function showPrsnArr() {
+      for (i = 0; i < prsnArr.length; i++) {
+      text1 += "<p id='demo2'>" + prsnArr[i].fname + "<br>" + prsnArr[i].lname + "<br>" + prsnArr[i].id + "</p>";
+      }
+      document.getElementById("demo1").innerHTML = text1;
+    }
+   
+    
+    function SAlert(strnp) {
+      alert("hiiiii");
+      
+      var text = strnp, str = text, str2 = str, m = 10000000, sum = 0, arr = [], noNum = isNaN(text), lnt = text.length, RID;
+
+        for(var i = 0; i < 8; i++)
+        {
+          arr.push(Math.floor(text / m)*(i % 2 + 1));
+          text = text % m;
+          m /= 10;
+          
+          if(arr[i] > 9)
+            sum += Math.floor(arr[i]/10) + arr[i] % 10;
+          else
+            sum += arr[i];
+        }
+      SuperCeil = (Math.floor(sum/10) + 1) * 10 - sum;
+        if(lnt == 9)
+          str = str.slice(0, 8);
+        
+        RID = str + SuperCeil;
+      if(str2 == RID)
+        document.getElementById("demo").innerHTML = "the check digit is right";
+      
+      return RID;
+    }
+    
+    function inputfilled() {
+      alert(arguments.values);
+      /*
+      for(var = i; i < arguments.length; i++)
+      {
+        if(arguments[i] == "")
+          {
+            alert("hiiii")
+            document.getElementById("demo").innerHTML = "please fill all the inputs";
+            return false;
+          }
+      }
+      */
+      return true;
+    }
+    /*
+    function validateId() {
+       if(text == "")
+        document.getElementById("demo").innerHTML = "please enter your ID";
+      else if(noNum == true)
+        document.getElementById("demo").innerHTML = "your input must contain numbers only";
+      else if(lnt < 8 || lnt > 9)
+        document.getElementById("demo").innerHTML = "your input is smaller from 8 or bigger from 9 digits";
+      else if(lnt > 7 && lnt < 10)
+      {
+      }
+    }
+    
+    */
+  </script>
+</body>
+</html>
